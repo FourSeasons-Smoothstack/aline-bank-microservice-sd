@@ -8,6 +8,8 @@ pipeline{
         stage('Build Artifact') {
             steps{
                 echo 'Building Artifact'
+                sh 'git submodule init'
+                sh 'git submodule update'
                 sh 'mvn clean package -DskipTests'
             }
         }
@@ -15,7 +17,7 @@ pipeline{
         stage('Build Image') {
             steps {
                 script{
-                    app= docker.build("aline-bank-sd")
+                    app = docker.build("aline-bank-sd")
                 }
 
             }
